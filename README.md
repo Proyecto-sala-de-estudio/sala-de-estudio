@@ -21,18 +21,7 @@ Todas las historias están registradas como GitHub Issues.
 
 ## Requisitos Extrafuncionales
 Ver: [ReqExtrafuncionales.md](./ReqExtrafuncionales.md)
-## Catalogo de  requisitos Extrafuncionales 
-| ID | Tipo | Descripción |
-|----|------|------------|
-| RNF-01 | Rendimiento / Eficiencia | El sistema debe responder a las solicitudes de losusuarios en menos de 2 segundos para asegurar una experiencia fluida. |
-| RNF-02 | Disponibilidad (Fiabilidad) | El sistema debe estar disponible al menos el 99% del tiempo para garantizar acceso continuo a las reservas. |
-| RNF-03 | Interoperabilidad | El sistema debe poder integrarse mediante API REST con otros sistemas o servicios externos. |
-| RNF-04 | Mantenibilidad | El código debe estar estructurado en módulos para facilitar su mantenimiento y evolución. |
-| RNF-05 | Portabilidad | El sistema debe poder ejecutarse en distintos navegadores y dispositivos sin afectar su funcionamiento. |
-| RNF-06 | Recuperabilidad | El sistema debe permitir la recuperación de datos ante fallos mediante respaldos periódicos. |
-| RNF-07 | Seguridad | El sistema debe controlar el acceso mediante autenticación de usuarios y roles. |
-| RNF-08 | Escalabilidad | El sistema debe soportar el aumento de usuarios sin degradar significativamente el rendimiento. |
-| RNF-09 | Testabilidad | El sistema debe permitir la ejecución de pruebas para validar su correcto funcionamiento. |
+
 ## Entidades del Dominio
 
 ### Usuario
@@ -68,19 +57,12 @@ Ver: [ReqExtrafuncionales.md](./ReqExtrafuncionales.md)
 
 ## Mockups
 
-| Mockup | Historia de usuario relacionada |
+| Mockup | Historia de usuario relacionada |(Preguntar profe)
 |--------|----------------------------------|
-| Lista de salas disponibles | US-01 |
-| Detalle de sala | US-02 |
-| Pantalla de reserva | US-03 |
-| Mis reservas | US-04 |
-| Salas priorizadas por facultad | US-05 |
-| Detalle de equipamiento | US-06 |
-| Vista de reservas activas | US-07 |
-| Edición de reserva | US-08 |
-| Panel de administración de salas | US-09 |
-| Panel de estadísticas | US-10 |
-| Configuración de reglas | US-11 |
+| Lista de salas disponibles(pegar link  figma ) | US-01 |
+
+
+
 
 ## Diseño Arquitectónico
 Ver: [Arquitectura.md](./Arquitectura.md)
@@ -94,18 +76,4 @@ Ver: [Arquitectura.md](./Arquitectura.md)
 | Matías Henríquez | Encargado de requisitos extrafuncionales | Catálogo de REF, clasificación, priorización y relación con la arquitectura |
 | Martín Leon | Encargado de dominio e interfaz | Entidades del dominio, mockups y coherencia con historias de usuario |
 
-## Trazabilidad
 
-| Historia | REF relacionado | Módulo | Mockup |
-|----------|-----------------|--------|--------|
-| US-01 | REF-04 | Gestión de Salas | Lista de salas disponibles |
-| US-02 | REF-04 | Gestión de Salas | Detalle de sala |
-| US-03 | REF-01, REF-03, REF-10 | Gestión de Reservas | Pantalla de reserva |
-| US-04 | REF-03, REF-10 | Gestión de Reservas | Mis reservas |
-| US-05 | REF-03, REF-04 | Gestión de Salas / Gestión de Usuarios | Salas priorizadas por facultad |
-| US-06 | REF-04 | Gestión de Salas | Detalle de equipamiento |
-| US-07 | REF-04 | Gestión de Reservas | Vista de reservas activas |
-| US-08 | REF-10 | Gestión de Reservas | Edición de reserva |
-| US-09 | REF-07 | Administración | Panel de administración de salas |
-| US-10 | REF-01 | Administración | Panel de estadísticas |
-| US-11 | REF-07, REF-10 | Administración | Configuración de reglas |
