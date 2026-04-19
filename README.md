@@ -8,16 +8,16 @@ Todas las historias están registradas como GitHub Issues.
 
 | ID    | Nombre                           | Issue |
 |-------|----------------------------------|-------|
-| US-01 | Ver ubicación de salas           | #1    |
-| US-02 | Ver capacidad de salas           | #2    |
-| US-03 | Reservar sala rápidamente        | #3    |
-| US-04 | Cancelar reserva                 | #4    |
-| US-05 | Prioridad por facultad           | #5    |
-| US-06 | Ver equipamiento de salas        | #6    |
-| US-07 | Filtrar salas por características| #7    |
-| US-08 | Gestionar salas                  | #8    |
-| US-09 | Ver uso de salas                 | #9    |
-| US-10 | Configurar reglas del sistema    | #10   |
+| US-01 | Ver ubicación de salas           | 1)    |
+| US-02 | Ver capacidad de salas           | 2)    |
+| US-03 | Reservar sala rápidamente        | 3)    |
+| US-04 | Cancelar reserva                 | 4)    |
+| US-05 | Prioridad por facultad           | 5)    |
+| US-06 | Ver equipamiento de salas        | 6)    |
+| US-07 | Filtrar salas por características| 7)    |
+| US-08 | Gestionar salas                  | 8)    |
+| US-09 | Ver uso de salas                 | 9)    |
+| US-10 | Configurar reglas del sistema    | 10)   |
 
 ## Requisitos Extrafuncionales
 Ver: [ReqExtrafuncionales.md](./ReqExtrafuncionales.md)
