@@ -21,7 +21,7 @@ Además, facilita la escalabilidad y la separación de responsabilidades, permit
 
 ## 2. Diagrama de Arquitectura
 
-![Diagrama de Arquitectura](./diagrama_arquitectura.png)
+![Diagrama de Arquitectura](./imagen/diagrama_arquitectura.jpg)
 
 ---
 
