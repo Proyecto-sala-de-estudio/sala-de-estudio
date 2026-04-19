@@ -14,7 +14,7 @@ Todas las historias están registradas como GitHub Issues.
 | US-04 | Cancelar reserva                 | #4    |
 | US-05 | Prioridad por facultad           | #5    |
 | US-06 | Ver equipamiento de salas        | #6    |
-| US-07 | Ver equipamiento de salas        | #7    |
+| US-07 | Filtrar salas por características| #7    |
 | US-08 | Gestionar salas                  | #8    |
 | US-09 | Ver uso de salas                 | #9    |
 | US-10 | Configurar reglas del sistema    | #10   |
