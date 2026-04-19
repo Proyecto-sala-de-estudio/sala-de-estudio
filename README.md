@@ -8,21 +8,31 @@ Todas las historias están registradas como GitHub Issues.
 
 | ID    | Nombre                           | Issue |
 |-------|----------------------------------|-------|
-| US-01 | Ver ubicación de salas           | #3    |
-| US-02 | Ver capacidad de salas           | #4    |
-| US-03 | Reservar sala rápidamente        | #5    |
-| US-04 | Cancelar reserva                 | #6    |
-| US-05 | Prioridad por facultad           | #7    |
-| US-06 | Ver equipamiento de salas        | #8    |
-| US-07 | Ver mis reservas                 | #14   |
-| US-08 | Modificar reserva                | #15   |
-| US-09 | Gestionar salas                  | #11   |
-| US-10 | Ver uso de salas                 | #12   |
-| US-11 | Configurar reglas del sistema    | #13   |
+| US-01 | Ver ubicación de salas           | #1    |
+| US-02 | Ver capacidad de salas           | #2    |
+| US-03 | Reservar sala rápidamente        | #3    |
+| US-04 | Cancelar reserva                 | #4    |
+| US-05 | Prioridad por facultad           | #5    |
+| US-06 | Ver equipamiento de salas        | #6    |
+| US-07 | Ver equipamiento de salas        | #7    |
+| US-08 | Gestionar salas                  | #8    |
+| US-09 | Ver uso de salas                 | #9    |
+| US-10 | Configurar reglas del sistema    | #10   |
 
 ## Requisitos Extrafuncionales
 Ver: [ReqExtrafuncionales.md](./ReqExtrafuncionales.md)
-
+## Catalogo de  requisitos Extrafuncionales 
+| ID | Tipo | Descripción |
+|----|------|------------|
+| RNF-01 | Rendimiento / Eficiencia | El sistema debe responder a las solicitudes de losusuarios en menos de 2 segundos para asegurar una experiencia fluida. |
+| RNF-02 | Disponibilidad (Fiabilidad) | El sistema debe estar disponible al menos el 99% del tiempo para garantizar acceso continuo a las reservas. |
+| RNF-03 | Interoperabilidad | El sistema debe poder integrarse mediante API REST con otros sistemas o servicios externos. |
+| RNF-04 | Mantenibilidad | El código debe estar estructurado en módulos para facilitar su mantenimiento y evolución. |
+| RNF-05 | Portabilidad | El sistema debe poder ejecutarse en distintos navegadores y dispositivos sin afectar su funcionamiento. |
+| RNF-06 | Recuperabilidad | El sistema debe permitir la recuperación de datos ante fallos mediante respaldos periódicos. |
+| RNF-07 | Seguridad | El sistema debe controlar el acceso mediante autenticación de usuarios y roles. |
+| RNF-08 | Escalabilidad | El sistema debe soportar el aumento de usuarios sin degradar significativamente el rendimiento. |
+| RNF-09 | Testabilidad | El sistema debe permitir la ejecución de pruebas para validar su correcto funcionamiento. |
 ## Entidades del Dominio
 
 ### Usuario
