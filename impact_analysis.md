@@ -1,87 +1,120 @@
-## 1. Estilo Arquitectónico
+# impact_analysis.md – Template
 
-Estilo adoptado: Cliente-Servidor en capas
+## 1. Cambio solicitado
+Se solicita agregar la funcionalidad de notificaciones automáticas para reservas y administración, de modo que los estudiantes reciban avisos sobre confirmaciones, cancelaciones y modificaciones de reserva, y los administradores reciban alertas sobre alta demanda o conflictos de uso.
 
-Justificación basada en REF priorizados:
+## 2. Nuevas historias de usuario
 
-| REF ID | Descripción                                                                | Prioridad | Cómo lo aborda el estilo |
-|--------|----------------------------------------------------------------------------|-----------|--------------------------|
-| REF-01 | El sistema debe responder en menos de 2 segundos en operaciones comunes    | Alta      | La separación entre cliente, backend y base de datos permite optimizar procesamiento y consultas |
-| REF-02 | El sistema debe estar disponible al menos un 99% en horario operativo      | Alta      | La separación por capas facilita mantenimiento y disminuye impacto de fallos parciales |
-| REF-03 | Solo usuarios autenticados pueden reservar, cancelar o modificar reservas  | Alta      | El backend centraliza la autenticación, autorización y validaciones de acceso |
-| REF-04 | La interfaz debe ser simple e intuitiva para estudiantes y administradores | Alta      | El frontend se especializa en experiencia de usuario sin mezclar lógica de negocio |
-| REF-07 | El sistema debe ser modular y de bajo acoplamiento                         | Alta      | La división por módulos funcionales reduce dependencias innecesarias |
-| REF-10 | Los datos de reservas deben mantenerse consistentes en todo momento        | Alta      | La lógica de reservas se valida y persiste desde backend antes de confirmarse |
+### US-12: Recibir notificaciones de reserva
+Como estudiante,  
+quiero recibir notificaciones sobre mis reservas,  
+para mantenerme informado sobre cambios en mis horarios de estudio.
 
-Explicación textual:  
-Se adopta una arquitectura cliente-servidor en capas porque permite separar claramente la presentación, la lógica de negocio y la persistencia de datos. Esta elección es adecuada para el sistema de reserva de salas, ya que mejora mantenibilidad, seguridad, claridad del diseño y consistencia de la información. Además, permite incorporar funcionalidades de administración sin alterar el funcionamiento principal del sistema para estudiantes.
+Criterios de aceptación:
+- CA1: Dado que realizo una reserva, cuando esta se confirma, entonces recibo una notificación.
+- CA2: Dado que una reserva es cancelada o modificada, cuando el sistema procesa el cambio, entonces recibo una notificación actualizada.
 
-## 2. Diagrama de Arquitectura
+### US-13: Recibir alertas de uso del sistema
+Como administrador,  
+quiero recibir alertas sobre conflictos o alta demanda de salas,  
+para tomar decisiones de gestión oportunas.
 
-![Diagrama de Arquitectura](./imagen/diagrama_arquitectura.png)
+Criterios de aceptación:
+- CA1: Dado que una sala presenta alta demanda, cuando el sistema detecta el evento, entonces se genera una alerta para administración.
+- CA2: Dado que se produce un conflicto de uso o disponibilidad, cuando el sistema lo detecta, entonces se notifica al administrador.
 
-## 3. Descomposición Modular
+## 3. Impacto en requisitos extrafuncionales
 
-Fundamentación:  
-La descomposición modular se realiza por funcionalidad del dominio, separando responsabilidades asociadas a estudiantes, reservas, salas y administración, con el objetivo de mantener alta cohesión y bajo acoplamiento.
+Indicar si el cambio altera la prioridad de algún REF o introduce nuevos.  
+Trazar cambios de prioridad que motiven cambios en decisiones de arquitectura.
 
-### Módulo 1: Interfaz de Usuario
-- Responsabilidad: Mostrar la información al usuario y permitir la interacción con el sistema
-- Ofrece a otros módulos: Solicitudes de consulta, reserva, cancelación, edición y administración
-- Depende de: Backend API
+| REF ID | Descripción                                                                | Prioridad anterior | Prioridad nueva | Cambio / Motivo |
+|--------|----------------------------------------------------------------------------|--------------------|-----------------|-----------------|
+| REF-01 | El sistema debe responder en menos de 2 segundos en operaciones comunes    | Alta               | Alta            | Sin cambio |
+| REF-02 | El sistema debe estar disponible al menos un 99% en horario operativo      | Alta               | Alta            | Sin cambio |
+| REF-09 | El sistema debe soportar múltiples usuarios concurrentes                   | Media              | Alta            | Las notificaciones aumentan carga concurrente |
+| REF-10 | Los datos de reservas deben mantenerse consistentes en todo momento        | Alta               | Alta            | Se vuelve más crítico al informar cambios automáticos |
+| REF-11 | El sistema debe emitir notificaciones oportunas y consistentes             | —                  | Alta            | Nuevo requisito derivado del cambio |
 
-### Módulo 2: Gestión de Usuarios
-- Responsabilidad: Administrar usuarios, su facultad y su rol dentro del sistema
-- Ofrece a otros módulos: Información de usuario y validación contextual
-- Depende de: Base de Datos
+## 4. Impacto en entidades del dominio
 
-### Módulo 3: Gestión de Salas
-- Responsabilidad: Administrar información de salas, ubicación, capacidad, equipamiento y disponibilidad
-- Ofrece a otros módulos: Datos de salas y consulta de disponibilidad
-- Depende de: Base de Datos
+Se agrega una nueva entidad:
 
-### Módulo 4: Gestión de Reservas
-- Responsabilidad: Crear, cancelar, consultar y modificar reservas
-- Ofrece a otros módulos: Estado actual e histórico de reservas
-- Depende de: Gestión de Usuarios, Gestión de Salas, Base de Datos
+### Notificacion
+- id
+- tipo
+- mensaje
+- fecha
+- leida
+- usuario_id
 
-### Módulo 5: Administración
-- Responsabilidad: Gestionar salas, visualizar estadísticas de uso y configurar reglas del sistema
-- Ofrece a otros módulos: Control administrativo, reportes y configuración
-- Depende de: Gestión de Salas, Gestión de Reservas, Base de Datos
+Relaciones afectadas:
+- Un Usuario puede recibir múltiples Notificaciones
+- Una Reserva puede generar una o más Notificaciones
+- La Administración puede recibir notificaciones asociadas a eventos del sistema
 
-### Módulo 6: Backend API
-- Responsabilidad: Exponer servicios REST al frontend y coordinar la lógica de negocio
-- Ofrece a otros módulos: Endpoints para usuarios, salas, reservas y administración
-- Depende de: Gestión de Usuarios, Gestión de Salas, Gestión de Reservas, Administración
+## 5. Impacto en mockups
 
-### Módulo 7: Base de Datos
-- Responsabilidad: Persistir usuarios, salas, reservas y reglas del sistema
-- Ofrece a otros módulos: Almacenamiento y recuperación de información
-- Depende de: Ninguno
+Mockups afectados y descripción de cambios necesarios:
+- **Pantalla de reserva**: mostrar confirmación de reserva y cambios recientes
+- **Mis reservas**: mostrar notificaciones relacionadas con cancelaciones o modificaciones
+- **Panel de administración**: mostrar alertas de demanda o conflictos del sistema
+- **Nuevo componente**: campana o bandeja de notificaciones
 
-## 4. Decisiones de Diseño
+## 6. Impacto en arquitectura
+
+### 6.1 ¿Cambia el estilo arquitectónico?
+No — Justificación:  
+La arquitectura cliente-servidor en capas sigue siendo válida. El cambio agrega una nueva responsabilidad funcional, pero no obliga a modificar el estilo arquitectónico. La solución puede integrarse mediante una extensión del backend y un módulo adicional de notificaciones.
+
+### 6.2 Relación REF (repriorizado) con decisiones de arquitectura
+
+| REF ID | Prioridad nueva | Decisión de arquitectura que lo aborda |
+|--------|-----------------|----------------------------------------|
+| REF-09 | Alta            | Extender backend para gestionar eventos concurrentes y envío de avisos |
+| REF-10 | Alta            | Centralizar notificaciones en backend para asegurar coherencia con cambios reales |
+| REF-11 | Alta            | Incorporar módulo específico de notificaciones |
+
+## 7. Impacto en módulos
+
+| Módulo | Tipo de impacto | Responsabilidad actualizada | Ofrece a otros (actualizado) |
+|--------|------------------|-----------------------------|------------------------------|
+| Interfaz de Usuario | modificado | Mostrar notificaciones a estudiantes y administradores | Visualización de avisos y alertas |
+| Gestión de Reservas | modificado | Generar eventos al crear, cancelar o modificar reservas | Información para módulo de notificaciones |
+| Administración | modificado | Mostrar alertas de uso y conflictos | Panel de alertas administrativas |
+| Backend API | modificado | Exponer endpoints para consulta de notificaciones | Servicios REST de notificaciones |
+| Módulo de Notificaciones | nuevo | Generar, almacenar y distribuir notificaciones | Envío y consulta de avisos |
+| Base de Datos | modificado | Persistir notificaciones emitidas por el sistema | Almacenamiento de mensajes y estado |
+
+Fundamentación de cambios modulares:  
+Se agrega un módulo específico de notificaciones para separar esta responsabilidad del resto del sistema. Esto permite mantener alta cohesión, bajo acoplamiento y una mejor trazabilidad entre eventos del sistema y avisos emitidos a usuarios o administradores.
+
+## 8. Nuevas decisiones de diseño
 
 ### Decisión 1
-- Decisión: Utilizar una API REST como mecanismo de comunicación entre frontend y backend
-- Motivación: Favorece separación de responsabilidades, mantenibilidad y escalabilidad (REF-01, REF-07, REF-09)
-- Alternativas consideradas: Comunicación directa del frontend con la base de datos
-- Impacto: Mejora seguridad, control de acceso y reutilización de servicios
+- Decisión: Incorporar un módulo de notificaciones independiente
+- Motivación: Separar la lógica de avisos del resto de la lógica de reservas y administración (REF-07, REF-11)
+- Alternativas consideradas: Gestionar notificaciones dentro de Gestión de Reservas
+- Impacto: Afecta Backend API, Base de Datos, Interfaz de Usuario y Administración
 
 ### Decisión 2
-- Decisión: Centralizar la validación de reservas en el backend
-- Motivación: Garantizar integridad y consistencia en la disponibilidad de salas (REF-10)
-- Alternativas consideradas: Validar únicamente desde frontend
-- Impacto: Disminuye errores, evita reservas inconsistentes y mejora confiabilidad
+- Decisión: Generar notificaciones desde el backend a partir de eventos reales del sistema
+- Motivación: Asegurar consistencia entre el estado del sistema y los avisos enviados (REF-10)
+- Alternativas consideradas: Generar avisos solo desde frontend
+- Impacto: Reduce inconsistencias y mejora confiabilidad de la información entregada
 
-### Decisión 3
-- Decisión: Separar la administración en un módulo independiente
-- Motivación: Las funcionalidades administrativas tienen responsabilidades distintas a las de los estudiantes y requieren operaciones de control específicas (REF-07)
-- Alternativas consideradas: Integrar administración dentro del módulo de reservas
-- Impacto: Mejora claridad del diseño y facilita evolución del sistema
+## 9. Trazabilidad actualizada
 
-### Decisión 4
-- Decisión: Implementar autenticación obligatoria para acciones sensibles
-- Motivación: Resguardar reservas, reglas del sistema y acciones administrativas (REF-03)
-- Alternativas consideradas: Permitir acciones sin autenticación
-- Impacto: Aumenta seguridad y control del sistema
+| Historia | REF relacionado | Módulo | Mockup |
+|----------|-----------------|--------|--------|
+| US-12 | REF-10, REF-11 | Módulo de Notificaciones | Bandeja de notificaciones |
+| US-13 | REF-09, REF-11 | Administración / Módulo de Notificaciones | Panel de alertas |
+
+## 10. Justificación global y trade-offs
+
+La incorporación de notificaciones mejora la experiencia de estudiantes y administradores, ya que permite reaccionar oportunamente frente a cambios, conflictos o eventos importantes del sistema. La solución es coherente con el diseño actual porque mantiene el estilo arquitectónico base y extiende el sistema mediante un módulo bien delimitado.
+
+Trade-offs considerados:
+- Se gana visibilidad, trazabilidad y mejor comunicación con usuarios
+- Se sacrifica simplicidad, ya que aumenta la complejidad del backend y la cantidad de eventos a gestionar
+- Se requiere mayor control de consistencia para evitar notificaciones erróneas o desactualizadas
